@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorurteilsbewusste Bildung und Erziehung – Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@300..700&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Helvetica Neue', sans-serif;
+
+  --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3rem);
+
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.375rem; --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;  --radius-xl: 1rem;
+
+  --content-narrow: 680px;
+  --content-default: 960px;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root, [data-theme="light"] {
+  --bg:             #f5f3ee;
+  --surface:        #faf9f6;
+  --surface-2:      #ffffff;
+  --surface-offset: #ede9e2;
+  --border:         oklch(0.3 0.01 80 / 0.12);
+  --divider:        oklch(0.3 0.01 80 / 0.08);
+  --text:           #1e1b14;
+  --text-muted:     #6b6860;
+  --text-faint:     #a8a69f;
+  --text-inverse:   #faf9f6;
+  --primary:        #2d6a4f;
+  --primary-hover:  #1b4332;
+  --primary-light:  #d8f3dc;
+  --accent:         #e76f51;
+  --accent-light:   #fde8e3;
+  --gold:           #b5873a;
+  --gold-light:     #fef3d8;
+  --blue:           #2563ab;
+  --blue-light:     #dbeafe;
+  --shadow-sm: 0 1px 3px oklch(0.2 0.01 80 / 0.07);
+  --shadow-md: 0 4px 14px oklch(0.2 0.01 80 / 0.09);
+  --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
+}
+
+[data-theme="dark"] {
+  --bg:             #141210;
+  --surface:        #1a1916;
+  --surface-2:      #1f1e1b;
+  --surface-offset: #252320;
+  --border:         oklch(0.9 0 0 / 0.10);
+  --divider:        oklch(0.9 0 0 / 0.06);
+  --text:           #d4d2cc;
+  --text-muted:     #7e7c77;
+  --text-faint:     #4d4c48;
+  --text-inverse:   #1a1916;
+  --primary:        #52b788;
+  --primary-hover:  #74c69d;
+  --primary-light:  #1b3a2a;
+  --accent:         #f4a261;
+  --accent-light:   #3a2212;
+  --gold:           #e9c46a;
+  --gold-light:     #2e2410;
+  --blue:           #60a5fa;
+  --blue-light:     #1e3050;
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.25);
+  --shadow-md: 0 4px 14px oklch(0 0 0 / 0.35);
+  --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.45);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100dvh;
+}
+img { display: block; max-width: 100%; }
+a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--primary-hover); }
+::selection { background: color-mix(in oklch, var(--primary) 20%, transparent); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── Skip link ── */
+.skip-link {
+  position: absolute; left: var(--space-4); top: var(--space-4);
+  background: var(--primary); color: var(--text-inverse);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-md);
+  font-size: var(--text-sm); font-weight: 600;
+  transform: translateY(-200%); transition: transform var(--transition);
+  z-index: 1000;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ── Header ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner {
+  max-width: var(--content-default);
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+}
+.site-logo {
+  display: flex; align-items: center; gap: var(--space-3);
+  text-decoration: none; color: var(--text);
+}
+.logo-mark {
+  width: 36px; height: 36px; flex-shrink: 0;
+}
+.logo-text { font-family: var(--font-display); font-size: var(--text-lg); font-style: italic; }
+.logo-subtitle { font-size: var(--text-xs); color: var(--text-muted); margin-top: -2px; }
+.header-actions { display: flex; align-items: center; gap: var(--space-3); }
+.theme-toggle {
+  background: none; border: 1px solid var(--border); border-radius: var(--radius-full);
+  width: 38px; height: 38px; display: grid; place-items: center;
+  color: var(--text-muted); cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.theme-toggle:hover { background: var(--surface-offset); color: var(--text); }
+--radius-full: 9999px;
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, color-mix(in oklch, var(--primary) 70%, var(--blue)) 100%);
+  color: var(--text-inverse);
+  padding: clamp(var(--space-12), 8vw, var(--space-16)) var(--space-6);
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  background: oklch(from white l c h / 0.18);
+  border: 1px solid oklch(from white l c h / 0.30);
+  border-radius: 9999px;
+  font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: var(--space-1) var(--space-4); margin-bottom: var(--space-5);
+  color: oklch(from white l c h / 0.90);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+  max-width: 18ch; margin-inline: auto;
+}
+.hero h1 em { font-style: italic; opacity: 0.85; }
+.hero-subtitle {
+  font-size: var(--text-lg); font-weight: 300;
+  opacity: 0.85; max-width: 52ch; margin-inline: auto;
+  margin-bottom: var(--space-8);
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4);
+}
+.hero-badge {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: oklch(from white l c h / 0.15);
+  border: 1px solid oklch(from white l c h / 0.25);
+  border-radius: 9999px; padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+/* ── Navigation ── */
+.toc-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.toc-inner {
+  max-width: var(--content-default);
+  margin-inline: auto;
+  padding: 0 var(--space-6);
+  display: flex; gap: 0;
+}
+.toc-link {
+  display: block; padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm); font-weight: 500;
+  color: var(--text-muted); text-decoration: none; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+.toc-link:hover { color: var(--text); border-bottom-color: var(--primary); }
+.toc-link.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ── Main Layout ── */
+.page-main {
+  max-width: var(--content-default);
+  margin-inline: auto;
+  padding: var(--space-10) var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: var(--space-10);
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .page-main { grid-template-columns: 1fr; }
+  .sidebar { order: -1; }
+}
+
+/* ── Content Sections ── */
+.content-section {
+  margin-bottom: var(--space-12);
+  scroll-margin-top: 100px;
+}
+.section-label {
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--primary); margin-bottom: var(--space-2);
+}
+.content-section h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400; line-height: 1.2;
+  color: var(--text);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--divider);
+}
+.content-section h3 {
+  font-size: var(--text-lg);
+  font-weight: 700; line-height: 1.3;
+  color: var(--text);
+  margin-top: var(--space-8); margin-bottom: var(--space-3);
+}
+.content-section p { margin-bottom: var(--space-4); max-width: 68ch; color: var(--text); }
+.content-section ul, .content-section ol {
+  padding-left: var(--space-6); margin-bottom: var(--space-4);
+}
+.content-section li { margin-bottom: var(--space-2); }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-5);
+}
+.card-primary {
+  background: var(--primary-light);
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent);
+}
+.card-accent {
+  background: var(--accent-light);
+  border-color: color-mix(in oklch, var(--accent) 25%, transparent);
+}
+.card-gold {
+  background: var(--gold-light);
+  border-color: color-mix(in oklch, var(--gold) 30%, transparent);
+}
+.card-blue {
+  background: var(--blue-light);
+  border-color: color-mix(in oklch, var(--blue) 20%, transparent);
+}
+
+/* ── Goals Grid ── */
+.goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+@media (max-width: 600px) { .goals-grid { grid-template-columns: 1fr; } }
+.goal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden;
+}
+.goal-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.goal-card:nth-child(1)::before { background: var(--primary); }
+.goal-card:nth-child(2)::before { background: var(--blue); }
+.goal-card:nth-child(3)::before { background: var(--gold); }
+.goal-card:nth-child(4)::before { background: var(--accent); }
+.goal-number {
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: var(--space-1);
+}
+.goal-card h4 { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-2); }
+.goal-card p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+
+/* ── Stats ── */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-4); margin-bottom: var(--space-6);
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 400; line-height: 1;
+  color: var(--primary); margin-bottom: var(--space-1);
+}
+.stat-label { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.4; }
+.stat-source { font-size: var(--text-xs); color: var(--text-faint); margin-top: var(--space-1); }
+
+/* ── Table ── */
+.data-table-wrap { overflow-x: auto; margin-bottom: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.data-table thead tr { background: var(--primary); color: var(--text-inverse); }
+.data-table th { padding: var(--space-3) var(--space-5); text-align: left; font-weight: 600; font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; }
+.data-table td { padding: var(--space-3) var(--space-5); border-bottom: 1px solid var(--divider); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--surface-offset); }
+.bar-cell { display: flex; align-items: center; gap: var(--space-3); }
+.bar { height: 8px; border-radius: 9999px; flex-shrink: 0; }
+.bar-green { background: var(--primary); }
+.bar-red   { background: var(--accent); }
+
+/* ── Praxis Examples ── */
+.praxis-grid { display: grid; gap: var(--space-5); margin-bottom: var(--space-6); }
+.praxis-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: grid; grid-template-columns: 48px 1fr; gap: var(--space-5);
+  align-items: start;
+}
+.praxis-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  background: var(--primary-light);
+  display: grid; place-items: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.praxis-body h4 { font-weight: 700; margin-bottom: var(--space-2); color: var(--text); }
+.praxis-body p { font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-2); }
+.praxis-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.tag {
+  font-size: var(--text-xs); font-weight: 600; padding: 2px var(--space-3);
+  border-radius: 9999px; border: 1px solid var(--border);
+  color: var(--text-muted); background: var(--surface-offset);
+}
+.solution-box {
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+  border-left: 3px solid var(--primary);
+}
+
+/* ── Quote / Highlight ── */
+.highlight-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: var(--space-5) var(--space-6);
+  margin: var(--space-6) 0;
+  box-shadow: var(--shadow-sm);
+}
+.highlight-box.warn { border-left-color: var(--accent); }
+.highlight-box.info { border-left-color: var(--blue); }
+blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  border-left: 3px solid var(--primary);
+  padding-left: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+/* ── Strategies ── */
+.strategy-grid { display: grid; gap: var(--space-5); }
+.strategy-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-6);
+  display: flex; gap: var(--space-5); align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+}
+.strategy-badge {
+  flex-shrink: 0; width: 36px; height: 36px;
+  border-radius: 9999px; display: grid; place-items: center;
+  font-size: var(--text-sm); font-weight: 700;
+}
+.strategy-badge.bad  { background: #fee2e2; color: #b91c1c; }
+.strategy-badge.good { background: var(--primary-light); color: var(--primary); }
+.strategy-body h4 { font-weight: 700; margin-bottom: var(--space-1); }
+.strategy-body p  { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+
+/* ── Literature / References ── */
+.literature-list {
+  list-style: none; padding: 0;
+  counter-reset: lit-counter;
+}
+.literature-list li {
+  counter-increment: lit-counter;
+  display: grid; grid-template-columns: 28px 1fr; gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: var(--text-sm);
+  align-items: start;
+}
+.literature-list li::before {
+  content: counter(lit-counter);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: var(--text-xs); font-weight: 700;
+  width: 24px; height: 24px;
+  border-radius: 9999px;
+  display: grid; place-items: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.lit-title { font-weight: 600; color: var(--text); }
+.lit-meta  { color: var(--text-muted); }
+.lit-link  { color: var(--primary); word-break: break-all; }
+.lit-doi   { font-size: var(--text-xs); color: var(--text-faint); }
+
+/* ── Sidebar ── */
+.sidebar { position: sticky; top: 80px; }
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-5);
+}
+.sidebar-card h3 { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-4); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+.sidebar-toc { list-style: none; padding: 0; }
+.sidebar-toc li { padding: var(--space-1) 0; }
+.sidebar-toc a {
+  font-size: var(--text-sm); color: var(--text-muted);
+  text-decoration: none; display: flex; align-items: center; gap: var(--space-2);
+  border-radius: var(--radius-sm); padding: var(--space-1) var(--space-2);
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-toc a::before { content: '·'; color: var(--text-faint); font-size: 1.2em; }
+.sidebar-toc a:hover { background: var(--surface-offset); color: var(--text); }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.footer-inner { max-width: var(--content-default); margin-inline: auto; }
+.footer-logo { font-family: var(--font-display); font-size: var(--text-lg); font-style: italic; color: var(--text); margin-bottom: var(--space-2); }
+
+/* ── Footnote chips ── */
+sup.ref {
+  font-size: 0.65em; vertical-align: super; line-height: 1;
+}
+sup.ref a {
+  background: var(--primary-light); color: var(--primary);
+  border-radius: 3px; padding: 1px 4px;
+  text-decoration: none; font-weight: 700;
+  font-size: 0.85em;
+}
+sup.ref a:hover { background: var(--primary); color: var(--text-inverse); }
+
+/* ── Responsive fine-tuning ── */
+@media (max-width: 600px) {
+  .header-inner { padding: var(--space-3) var(--space-4); }
+  .page-main { padding: var(--space-6) var(--space-4); }
+  .praxis-card { grid-template-columns: 1fr; }
+  .hero-meta { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
+
+<!-- ── HEADER ── -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="#" class="site-logo" aria-label="Zur Startseite">
+      <svg class="logo-mark" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="13" cy="14" r="5" fill="var(--primary)" opacity="0.85"/>
+        <circle cx="23" cy="14" r="5" fill="var(--blue)" opacity="0.75"/>
+        <circle cx="18" cy="23" r="5" fill="var(--accent)" opacity="0.75"/>
+        <circle cx="18" cy="17" r="3" fill="white" opacity="0.9"/>
+      </svg>
+      <div>
+        <div class="logo-text">Vorurteilsbewusste Bildung</div>
+        <div class="logo-subtitle">Anti-Bias-Pädagogik · Demokratietag</div>
+      </div>
+    </a>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Farbschema wechseln">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ── TOC NAV ── -->
+<nav class="toc-nav" aria-label="Seitennavigation">
+  <div class="toc-inner">
+    <a href="#grundlagen" class="toc-link">Grundlagen</a>
+    <a href="#ziele" class="toc-link">Vier Ziele</a>
+    <a href="#statistiken" class="toc-link">Statistiken</a>
+    <a href="#studien" class="toc-link">Studien</a>
+    <a href="#praxis" class="toc-link">Praxis</a>
+    <a href="#strategien" class="toc-link">Strategien</a>
+    <a href="#literatur" class="toc-link">Literatur</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-eyebrow">Workshop · Demokratietag</div>
+  <h1 id="hero-title">
+    <em>„Stell dich nicht so an,<br>so war das nicht gemeint!"</em>
+  </h1>
+  <p class="hero-subtitle">Vorurteilsbewusste Bildung und Erziehung — Haltungen, Sprachmuster und Routinen in der Kita-Praxis reflektieren</p>
+  <div class="hero-meta">
+    <span class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      90 Minuten
+    </span>
+    <span class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Für Erzieher·innen
+    </span>
+    <span class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Anti-Bias-Pädagogik
+    </span>
+  </div>
+</section>
+
+<!-- ── MAIN ── -->
+<main id="main" class="page-main">
+<div class="main-content">
+
+<!-- GRUNDLAGEN -->
+<section class="content-section" id="grundlagen" aria-labelledby="h-grundlagen">
+  <div class="section-label">Geschichte & Hintergrund</div>
+  <h2 id="h-grundlagen">Grundlagen & Geschichte</h2>
+
+  <p>Die <strong>Vorurteilsbewusste Bildung und Erziehung (VBE)</strong> ist die deutsche Adaption des amerikanischen <em>Anti-Bias-Approach</em>, der in den 1980er Jahren von <strong>Louise Derman-Sparks</strong> in Kooperation mit dem Council on Interracial Books for Children entwickelt wurde.<sup class="ref"><a href="#lit-1">1</a></sup> Der Ansatz entstand aus der Bürgerrechtsbewegung und der feministischen Pädagogik heraus und zielt darauf, bereits im Vorschulalter diskriminierenden Strukturen entgegenzuwirken.<sup class="ref"><a href="#lit-2">2</a></sup></p>
+
+  <p>Ende der 1990er Jahre brachte das Berliner Projekt <strong>Kinderwelten</strong> (heute: Fachstelle Kinderwelten am Institut für den Situationsansatz) den Ansatz nach Deutschland. Petra Wagner verband ihn dabei mit dem <em>Situationsansatz</em> und der Pädagogik der <em>wechselseitigen Anerkennung</em> nach Georg Auernheimer.<sup class="ref"><a href="#lit-3">3</a></sup><sup class="ref"><a href="#lit-4">4</a></sup></p>
+
+  <blockquote>„Vielfalt respektieren – Ausgrenzung widerstehen"<br><cite style="font-size:var(--text-sm); color:var(--text-faint);">— Leitmotiv des Anti-Bias-Ansatzes (Derman-Sparks, 1989)</cite></blockquote>
+
+  <div class="highlight-box info">
+    <strong>Was ist „Bias"?</strong><br>
+    Der Begriff <em>Bias</em> (engl. Schräge, Vorspannung) meint in diesem Kontext einseitige Wahrnehmungen, Vorannahmen und Vorurteile, die in Sprache, Materialien und pädagogischen Handlungen strukturell eingebettet sein können – auch ohne bewusste Diskriminierungsabsicht.<sup class="ref"><a href="#lit-1">1</a></sup>
+  </div>
+</section>
+
+<!-- ZIELE -->
+<section class="content-section" id="ziele" aria-labelledby="h-ziele">
+  <div class="section-label">Pädagogische Grundhaltung</div>
+  <h2 id="h-ziele">Die vier Ziele des Anti-Bias-Ansatzes</h2>
+  <p>Derman-Sparks (1989) formulierte vier interdependente Ziele, die in der deutschen Adaption durch Kinderwelten beibehalten wurden:<sup class="ref"><a href="#lit-1">1</a></sup><sup class="ref"><a href="#lit-4">4</a></sup></p>
+
+  <div class="goals-grid">
+    <div class="goal-card">
+      <div class="goal-number">Ziel 1</div>
+      <h4>Ich-Identität stärken</h4>
+      <p>Stärkung der Ich-Identität und der Bezugsgruppenidentität jedes Kindes – unabhängig von Herkunft, Geschlecht oder familiärer Lebensform.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-number">Ziel 2</div>
+      <h4>Vielfalt & Empathie</h4>
+      <p>Erfahrungen mit Vielfalt ermöglichen, Freude an Unterschieden und Gemeinsamkeiten wecken und Empathie kultivieren.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-number">Ziel 3</div>
+      <h4>Vorurteile hinterfragen</h4>
+      <p>Einseitigkeiten, stereotype Darstellungen und Vorurteile in Medien, Spielzeug und Alltagssituationen kritisch wahrnehmen und benennen.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-number">Ziel 4</div>
+      <h4>Gegen Diskriminierung eintreten</h4>
+      <p>Aktiv für sich selbst und für andere eintreten – Handlungsfähigkeit gegenüber Unrecht entwickeln.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Wichtig:</strong> Die vier Ziele sind keine Stufenfolge, sondern greifen zirkulär ineinander. Ein Kind, das in seiner Identität gestärkt ist (Ziel 1), kann leichter Empathie zeigen (Ziel 2) und für andere eintreten (Ziel 4).<sup class="ref"><a href="#lit-4">4</a></sup>
+  </div>
+</section>
+
+<!-- STATISTIKEN -->
+<section class="content-section" id="statistiken" aria-labelledby="h-statistiken">
+  <div class="section-label">Aktuelle Daten</div>
+  <h2 id="h-statistiken">Diskriminierung in Deutschland – Zahlen & Fakten</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">11.405</div>
+      <div class="stat-label">Beratungsanfragen bei der ADS (2024) – fast Verdreifachung seit 2019</div>
+      <div class="stat-source">ADS, 2024 <sup class="ref"><a href="#lit-5">5</a></sup></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">76%</div>
+      <div class="stat-label">Schwarze Menschen in D., die 2022 Diskriminierung erlebten (EU-Höchstwert)</div>
+      <div class="stat-source">FRA, 2023 <sup class="ref"><a href="#lit-6">6</a></sup></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">46%</div>
+      <div class="stat-label">Davon erlebten Diskriminierung speziell im deutschen Bildungssystem</div>
+      <div class="stat-source">FRA, 2023 <sup class="ref"><a href="#lit-6">6</a></sup></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">43%</div>
+      <div class="stat-label">Aller ADS-Anfragen betreffen Rassismus (häufigster Diskriminierungsgrund)</div>
+      <div class="stat-source">ADS, 2024 <sup class="ref"><a href="#lit-5">5</a></sup></div>
+    </div>
+  </div>
+
+  <div class="card card-gold">
+    <strong>Weitere Verteilung der ADS-Beratungsanfragen 2024:</strong>
+    <ul style="margin-top:var(--space-3);">
+      <li>Rassismus / ethnische Herkunft: <strong>43 %</strong></li>
+      <li>Behinderung / chronische Krankheit: <strong>27 %</strong></li>
+      <li>Geschlecht: <strong>24 %</strong></li>
+      <li>Bildungsbereich: <strong>6 %</strong></li>
+    </ul>
+    <div style="margin-top:var(--space-3); font-size:var(--text-xs); color:var(--text-muted);">Quelle: Antidiskriminierungsstelle des Bundes (2024) <sup class="ref"><a href="#lit-5">5</a></sup></div>
+  </div>
+</section>
+
+<!-- STUDIEN -->
+<section class="content-section" id="studien" aria-labelledby="h-studien">
+  <div class="section-label">Empirische Evidenz</div>
+  <h2 id="h-studien">Schlüsselstudien: Name, Kopftuch & Herkunft</h2>
+
+  <h3>Uni-Siegen-Studie (Köhler & Wiemann, 2025) <sup class="ref"><a href="#lit-7">7</a></sup></h3>
+  <p>Ekkehard A. Köhler und Dilara Wiemann (Universität Siegen) untersuchten mit nahezu <strong>50.000 Beobachtungen</strong> aus drei Feldversuchen ethnische Diskriminierung auf dem deutschen Ausbildungsmarkt. Ihre Studie gilt als die bisher umfangreichste Untersuchung dieser Art im deutschsprachigen Raum.</p>
+
+  <div class="highlight-box warn">
+    <strong>Zentrales Fazit:</strong> „Herkunft schlägt Leistung" – selbst deutlich bessere Schulnoten gleichen die Benachteiligung arabischer Bewerber·innen nicht aus.<sup class="ref"><a href="#lit-7">7</a></sup>
+  </div>
+
+  <div class="data-table-wrap">
+    <table class="data-table" aria-label="Rückmeldequoten nach Bewerbungsnamen">
+      <thead>
+        <tr>
+          <th>Bewerbungsname</th>
+          <th>Rückmeldequote</th>
+          <th>Visualisierung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Deutsch klingend</td>
+          <td><strong>67,8 %</strong></td>
+          <td><div class="bar-cell"><div class="bar bar-green" style="width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td>Russisch klingend</td>
+          <td>ca. 57 %</td>
+          <td><div class="bar-cell"><div class="bar bar-green" style="width:101px; opacity:.7"></div></div></td>
+        </tr>
+        <tr>
+          <td>Hebräisch klingend</td>
+          <td>ca. 54 %</td>
+          <td><div class="bar-cell"><div class="bar bar-green" style="width:96px; opacity:.65"></div></div></td>
+        </tr>
+        <tr>
+          <td>Türkisch klingend</td>
+          <td>ca. 52 %</td>
+          <td><div class="bar-cell"><div class="bar bar-red" style="width:92px; opacity:.8"></div></div></td>
+        </tr>
+        <tr>
+          <td>Arabisch klingend</td>
+          <td><strong style="color:var(--accent)">nur 36,8 %</strong></td>
+          <td><div class="bar-cell"><div class="bar bar-red" style="width:65px"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:var(--text-xs); color:var(--text-muted);">Quelle: Köhler &amp; Wiemann (2025), Universität Siegen <sup class="ref"><a href="#lit-7">7</a></sup></p>
+
+  <h3>SVR-Korrespondenztest (2014) <sup class="ref"><a href="#lit-8">8</a></sup></h3>
+  <p>Der Sachverständigenrat Deutscher Stiftungen für Integration und Migration schickte in einem kontrollierten Experiment identische Bewerbungen mit deutschem bzw. türkischem Namen an reale Unternehmen. Ergebnis: Bewerber·innen mit türkischem Namen benötigten <strong>rund 40 % mehr Bewerbungen</strong>, um ebenso viele Einladungen zu erhalten wie Bewerber·innen mit deutschem Namen.</p>
+
+  <h3>Kopftuch-Studie (Weichselbaumer / IZA, 2016) <sup class="ref"><a href="#lit-9">9</a></sup></h3>
+  <p>Doris Weichselbaumer (Johannes Kepler Universität Linz) schickte ca. 1.500 fiktive Bewerbungen an Unternehmen in Deutschland. Drei identische Profile unterschieden sich nur im Foto: ohne Kopftuch (deutschklingender Name), ohne Kopftuch (ausländischklingender Name), mit Kopftuch.</p>
+
+  <div class="stats-grid" style="grid-template-columns: repeat(2,1fr);">
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent);">4,5×</div>
+      <div class="stat-label">Mehr Bewerbungen für Bewerberinnen mit Kopftuch (vs. deutschem Namen, Büroberufe)</div>
+      <div class="stat-source">Weichselbaumer / IZA, 2016 <sup class="ref"><a href="#lit-9">9</a></sup></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent);">7,6×</div>
+      <div class="stat-label">Mehr Bewerbungen bei hochqualifizierten Stellen (z. B. Bilanzbuchhaltung)</div>
+      <div class="stat-source">Weichselbaumer / IZA, 2016 <sup class="ref"><a href="#lit-9">9</a></sup></div>
+    </div>
+  </div>
+
+  <h3>Der Doll-Test (Clark &amp; Clark, 1939 / 2005) <sup class="ref"><a href="#lit-10">10</a></sup></h3>
+  <p>Kenneth und Mamie Clark zeigten bereits 1939, dass schwarze Kinder weiße Puppen als „netter" und „hübscher" bewerteten – ein Zeichen internalisierter rassistischer Normen. 2005 wiederholte das CNN-Magazin das Experiment mit ähnlichem Ergebnis: Kinder verknüpfen Hautfarbe früh mit positiven oder negativen Zuschreibungen. Der Test belegt, dass Kita-Pädagogik bereits im frühesten Alter ansetzt werden muss.<sup class="ref"><a href="#lit-10">10</a></sup><sup class="ref"><a href="#lit-11">11</a></sup></p>
+
+  <h3>Soziale Herkunft und Bildungserfolg (ifo Institut, 2025) <sup class="ref"><a href="#lit-12">12</a></sup></h3>
+  <p>Das ifo Institut belegt: Von 100 Kindern aus Nichtakademikerhaushalten erreichen nur <strong>11</strong> einen Masterabschluss – gegenüber <strong>43</strong> von 100 Kindern aus Akademikerhaushalten. Dieser Effekt ist weitgehend unabhängig von gemessener kognitiver Leistung und weist auf strukturelle Benachteiligungen im Bildungssystem hin.<sup class="ref"><a href="#lit-12">12</a></sup></p>
+</section>
+
+<!-- PRAXIS -->
+<section class="content-section" id="praxis" aria-labelledby="h-praxis">
+  <div class="section-label">Von der Theorie zur Praxis</div>
+  <h2 id="h-praxis">Praxisbeispiele aus Kitas</h2>
+  <p>Die folgenden Beispiele stammen aus der Dokumentation der Kinderwelten-Projekte und illustrieren, wie die vier Anti-Bias-Ziele im Kita-Alltag konkret umgesetzt werden können.<sup class="ref"><a href="#lit-4">4</a></sup><sup class="ref"><a href="#lit-3">3</a></sup></p>
+
+  <div class="praxis-grid">
+    <div class="praxis-card">
+      <div class="praxis-icon">📦</div>
+      <div class="praxis-body">
+        <h4>Die Verkleidungsecke</h4>
+        <p>Eine Erzieherin bemerkt, dass vor allem Mädchen in der Verkleidungsecke spielen. In einer Kinderversammlung teilt sie ihre Beobachtung mit – und die Kinder stellen selbst fest: <em>„Nur Frauensachen sind in der Kiste!"</em></p>
+        <div class="solution-box">➜ Gemeinsam wird die Ecke neu ausgestattet. Es entstehen Gespräche über Geschlechterrollen und Stereotypen.</div>
+        <div class="praxis-tags">
+          <span class="tag">Ziel 1</span><span class="tag">Ziel 2</span><span class="tag">Ziel 3</span><span class="tag">Ziel 4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="praxis-card">
+      <div class="praxis-icon">👨‍👩‍👧‍👦</div>
+      <div class="praxis-body">
+        <h4>Die Familienwand</h4>
+        <p>Großformatige Fotos aller Familien in Augenhöhe – ausgewählt gemeinsam mit den Familien, nicht nach normativen Vorstellungen der Fachkräfte. Patchwork-, Regenbogen-, Mehrgenerationenfamilien sind alle sichtbar.</p>
+        <div class="solution-box">➜ Alle Kinder sehen: <em>Meine Familie gehört dazu.</em> Das stärkt Zugehörigkeitsgefühl und Selbstwert.</div>
+        <div class="praxis-tags">
+          <span class="tag">Ziel 1</span><span class="tag">Ziel 2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="praxis-card">
+      <div class="praxis-icon">📚</div>
+      <div class="praxis-body">
+        <h4>Mehrsprachiges Lesefest</h4>
+        <p>Eltern werden eingeladen, Bücher in ihrer Familiensprache vorzulesen. Die Botschaft: <em>Alle Sprachen sind wertvoll</em>. Kinder erleben Sprachklang und Kulturen als selbstverständliche Vielfalt.</p>
+        <div class="solution-box">➜ Mehrsprachigkeit wird als Ressource erlebt, nicht als Defizit.</div>
+        <div class="praxis-tags">
+          <span class="tag">Ziel 1</span><span class="tag">Ziel 2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="praxis-card">
+      <div class="praxis-icon">🩹</div>
+      <div class="praxis-body">
+        <h4>Hautfarben-Pflaster</h4>
+        <p>Die Aufschrift <em>„hautfarben"</em> auf der Pflasterpackung wird zum Thema. Kinder vergleichen die Farbe mit ihrer eigenen Haut und stellen fest: <em>„Das stimmt ja gar nicht!"</em> Sie schreiben dem Hersteller – und erhalten durchsichtige Pflaster.</p>
+        <div class="solution-box">➜ Kinder erfahren: Ihre Wahrnehmung von Ungerechtigkeit ist berechtigt – und Veränderung ist möglich.</div>
+        <div class="praxis-tags">
+          <span class="tag">Ziel 3</span><span class="tag">Ziel 4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIEN -->
+<section class="content-section" id="strategien" aria-labelledby="h-strategien">
+  <div class="section-label">Pädagogische Haltung</div>
+  <h2 id="h-strategien">Strategien im Umgang mit Vielfalt</h2>
+  <p>Petra Wagner unterscheidet in ihrer Grundlagenpublikation drei typische Reaktionsmuster pädagogischer Fachkräfte auf Vielfalt und Differenz:<sup class="ref"><a href="#lit-3">3</a></sup></p>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="strategy-badge bad">✗</div>
+      <div class="strategy-body">
+        <h4>Leugnen der Unterschiede</h4>
+        <p><em>„Alle Kinder sind gleich!"</em> — Diese gut gemeinte Haltung ignoriert reale Erfahrungen von Kindern, verhindert offene Gespräche und kann Kinder unsichtbar machen, die Diskriminierung erleben.</p>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-badge bad">✗</div>
+      <div class="strategy-body">
+        <h4>Überbetonen der Unterschiede</h4>
+        <p>Zu viel Fokus auf „Besonderheiten" führt zu Exotisierung, Kategorisierung und Reduktion. Bsp.: <em>„Aysan kommt aus einem Land, da haben es viele Menschen nicht so gut wie wir…"</em></p>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-badge good">✓</div>
+      <div class="strategy-body">
+        <h4>Vorurteilsbewusster Umgang</h4>
+        <p>Unterschiede wahrnehmen, <em>ohne sie zu werten</em>. Vielfalt als Normalität. Bsp.: <em>„Ich freue mich, dass Aysan jetzt Teil unserer Gruppe ist. Aysan, magst du uns erzählen, was du besonders gerne magst?"</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box warn" style="margin-top:var(--space-8);">
+    <strong>Zur Überschrift dieses Workshops:</strong><br>
+    <em>„Stell dich nicht so an – so war das nicht gemeint!"</em> stellt die <strong>Intention über die Wirkung</strong>. Diskriminierung braucht jedoch keine Absicht – es ist das Erleben der betroffenen Person, das zählt. Dieser Satz minimiert und verhindert echte Reflexion.<sup class="ref"><a href="#lit-13">13</a></sup>
+  </div>
+</section>
+
+<!-- LITERATUR -->
+<section class="content-section" id="literatur" aria-labelledby="h-literatur">
+  <div class="section-label">Quellen & Weiterführendes</div>
+  <h2 id="h-literatur">Literatur & Quellenverweise</h2>
+
+  <ol class="literature-list" aria-label="Literaturverzeichnis">
+
+    <li id="lit-1">
+      <div>
+        <div class="lit-title">Anti-Bias Curriculum: Tools for Empowering Young Children</div>
+        <div class="lit-meta">Derman-Sparks, L. &amp; ABC Task Force (1989). Washington D.C.: NAEYC.</div>
+        <div class="lit-doi">Grundlegendes Originalwerk des Anti-Bias-Ansatzes</div>
+      </div>
+    </li>
+
+    <li id="lit-2">
+      <div>
+        <div class="lit-title">Anti-Bias Education for Young Children and Ourselves (2. Aufl.)</div>
+        <div class="lit-meta">Derman-Sparks, L. &amp; Edwards, J. O. (2010). Washington D.C.: NAEYC.</div>
+        <div class="lit-doi">Aktualisierte Fassung für Praxis und Ausbildung</div>
+      </div>
+    </li>
+
+    <li id="lit-3">
+      <div>
+        <div class="lit-title">Vorurteilsbewusste Bildung und Erziehung in Kindertageseinrichtungen</div>
+        <div class="lit-meta">Wagner, P. (Hrsg.) (2008). Weimar/Berlin: verlag das netz.</div>
+        <div class="lit-doi">Standardwerk der deutschen Adaption; hrsg. von Kinderwelten/ISTA Berlin</div>
+      </div>
+    </li>
+
+    <li id="lit-4">
+      <div>
+        <div class="lit-title">Kinderwelten – Fachstelle für vorurteilsbewusste Bildung und Erziehung</div>
+        <div class="lit-meta">Institut für den Situationsansatz (ISTA) (o. J.). <a href="https://www.kinderwelten.net" target="_blank" rel="noopener noreferrer" class="lit-link">www.kinderwelten.net</a></div>
+        <div class="lit-doi">Laufende Praxismaterialien, Fortbildungskonzepte und Projektberichte</div>
+      </div>
+    </li>
+
+    <li id="lit-5">
+      <div>
+        <div class="lit-title">Jahresbericht 2024 der Antidiskriminierungsstelle des Bundes</div>
+        <div class="lit-meta">Antidiskriminierungsstelle des Bundes (ADS) (2024). Berlin: ADS.</div>
+        <div class="lit-doi"><a href="https://www.antidiskriminierungsstelle.de" target="_blank" rel="noopener noreferrer" class="lit-link">www.antidiskriminierungsstelle.de</a></div>
+      </div>
+    </li>
+
+    <li id="lit-6">
+      <div>
+        <div class="lit-title">Being Black in the EU – Second European Union Minorities and Discrimination Survey</div>
+        <div class="lit-meta">Europäische Grundrechteagentur (FRA) (2023). Wien: FRA. ISBN 978-92-9461-329-4.</div>
+        <div class="lit-doi"><a href="https://fra.europa.eu/en/publication/2023/being-black-eu" target="_blank" rel="noopener noreferrer" class="lit-link">fra.europa.eu</a></div>
+      </div>
+    </li>
+
+    <li id="lit-7">
+      <div>
+        <div class="lit-title">Ethnic Discrimination in Apprenticeship Training: Evidence from Three Field Experiments in Germany</div>
+        <div class="lit-meta">Köhler, E. A. &amp; Wiemann, D. (2025). Journal of Labor Economics. Universität Siegen.</div>
+        <div class="lit-doi">Ca. 50.000 Beobachtungen; umfangreichste Studie dieser Art für den deutschen Ausbildungsmarkt</div>
+      </div>
+    </li>
+
+    <li id="lit-8">
+      <div>
+        <div class="lit-title">Diskriminierung auf dem deutschen Ausbildungsmarkt: SVR-Korrespondenztest</div>
+        <div class="lit-meta">Sachverständigenrat Deutscher Stiftungen für Integration und Migration (SVR) (2014). Berlin: SVR.</div>
+        <div class="lit-doi"><a href="https://www.svr-migration.de" target="_blank" rel="noopener noreferrer" class="lit-link">www.svr-migration.de</a></div>
+      </div>
+    </li>
+
+    <li id="lit-9">
+      <div>
+        <div class="lit-title">Discrimination Towards Migrants in Austria: An Experimental Study</div>
+        <div class="lit-meta">Weichselbaumer, D. (2016). IZA Discussion Paper No. 9919. Bonn: IZA.</div>
+        <div class="lit-doi"><a href="https://docs.iza.org/dp9919.pdf" target="_blank" rel="noopener noreferrer" class="lit-link">docs.iza.org/dp9919.pdf</a> · Ergebnisse auf Deutschland übertragbar, vgl. Köhler &amp; Wiemann 2025</div>
+      </div>
+    </li>
+
+    <li id="lit-10">
+      <div>
+        <div class="lit-title">Racial Identification and Preference in Negro Children</div>
+        <div class="lit-meta">Clark, K. B. &amp; Clark, M. P. (1947). In T. M. Newcomb &amp; E. L. Hartley (Hrsg.), Readings in Social Psychology. New York: Holt.</div>
+        <div class="lit-doi">Original-„Doll Test"-Studie; wesentliche Grundlage des Brown-vs.-Board-Urteils (1954)</div>
+      </div>
+    </li>
+
+    <li id="lit-11">
+      <div>
+        <div class="lit-title">A Girl Like Me (Dokumentarfilm / CNN-Replikation des Doll Tests)</div>
+        <div class="lit-meta">Davis, K. (2005). Produced as school project; verbreitet durch CNN Special.</div>
+        <div class="lit-doi">Zeigt ähnliche Ergebnisse wie 1939 – Kinder internalisieren gesellschaftliche Normen über Hautfarbe</div>
+      </div>
+    </li>
+
+    <li id="lit-12">
+      <div>
+        <div class="lit-title">Herkunft und Bildungserfolg: Chancengerechtigkeit im deutschen Bildungssystem</div>
+        <div class="lit-meta">ifo Institut (2025). ifo Schnelldienst, 78(4). München: ifo.</div>
+        <div class="lit-doi"><a href="https://www.ifo.de" target="_blank" rel="noopener noreferrer" class="lit-link">www.ifo.de</a></div>
+      </div>
+    </li>
+
+    <li id="lit-13">
+      <div>
+        <div class="lit-title">Vielfalt im Kindergarten – Grundlagen, Reflexionen, Methoden (3. Aufl.)</div>
+        <div class="lit-meta">Prengel, A. (2019). Weinheim: Beltz.</div>
+        <div class="lit-doi">Zur Unterscheidung Intention vs. Wirkung in diskriminierenden Situationen</div>
+      </div>
+    </li>
+
+  </ol>
+</section>
+
+</div><!-- /.main-content -->
+
+<!-- SIDEBAR -->
+<aside class="sidebar" aria-label="Seitenleiste">
+  <div class="sidebar-card">
+    <h3>Auf dieser Seite</h3>
+    <ul class="sidebar-toc" role="list">
+      <li><a href="#grundlagen">Grundlagen & Geschichte</a></li>
+      <li><a href="#ziele">Die vier Ziele</a></li>
+      <li><a href="#statistiken">Statistiken Deutschland</a></li>
+      <li><a href="#studien">Schlüsselstudien</a></li>
+      <li><a href="#praxis">Kita-Praxisbeispiele</a></li>
+      <li><a href="#strategien">Strategien & Haltung</a></li>
+      <li><a href="#literatur">Literatur</a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-card card-primary">
+    <h3>Workshop-Info</h3>
+    <p style="font-size:var(--text-sm); margin-bottom:var(--space-3);">Demokratietag</p>
+    <ul style="font-size:var(--text-sm); padding-left:var(--space-5); margin:0; color:var(--text-muted);">
+      <li>Dauer: 90 Minuten</li>
+      <li>Zielgruppe: Erzieher·innen</li>
+      <li>Methode: Anti-Bias-Pädagogik</li>
+    </ul>
+  </div>
+
+  <div class="sidebar-card">
+    <h3>Kernzitate</h3>
+    <blockquote style="font-size:var(--text-sm); margin:0; padding-left:var(--space-4);">
+      „Diskriminierung braucht keine Absicht – es ist die Wirkung, die zählt."
+    </blockquote>
+    <p style="font-size:var(--text-xs); color:var(--text-faint); margin-top:var(--space-2);">— Prengel (2019)</p>
+  </div>
+</aside>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Vorurteilsbewusste Bildung und Erziehung</div>
+    <p>Workshop-Material · Demokratietag · Anti-Bias-Pädagogik</p>
+    <p style="margin-top:var(--space-2);">Erstellt auf Grundlage von Derman-Sparks (1989) und Kinderwelten/ISTA Berlin</p>
+  </div>
+</footer>
+
+<script>
+/* Theme toggle */
+(function(){
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const root = document.documentElement;
+  let dark = matchMedia('(prefers-color-scheme:dark)').matches;
+  root.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const sunIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  const moonIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  if(toggle){
+    toggle.innerHTML = dark ? sunIcon : moonIcon;
+    toggle.addEventListener('click', () => {
+      dark = !dark;
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      toggle.innerHTML = dark ? sunIcon : moonIcon;
+      toggle.setAttribute('aria-label', dark ? 'Helles Design aktivieren' : 'Dunkles Design aktivieren');
+    });
+  }
+})();
+
+/* Active nav on scroll */
+(function(){
+  const sections = document.querySelectorAll('.content-section[id]');
+  const links = document.querySelectorAll('.toc-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+</body>
+</html>
